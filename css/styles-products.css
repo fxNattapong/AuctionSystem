@@ -1,0 +1,484 @@
+html, body{
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    font-family: Quicksand;
+    font-weight: 500;
+  }
+  
+  /* Navbar */
+  .imgLogo {
+    width: 5%;
+    float: left;
+    border-radius: 8px;
+    /* position:fixed; */
+  }
+  .container {
+      font-size: 20;
+  }
+  nav.scrolled {
+    background: #0c1033;
+  }
+  .navbar-margin{
+      margin-left: 3%;
+  }
+  .navbar-margin a:hover{
+      color: #0093ff !important;
+  }
+  .nav-login {
+      position: absolute; 
+      right: 15%;
+  }
+  li { /* Delete marker */
+      list-style-type: none;
+  }
+  .btn-right{
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    color: white;
+    padding: 8 8;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  .btn-right a:hover {
+    box-shadow: 0 0 20px rgb(119, 0, 255, 0.5);
+    border-radius: 5px;
+    color: #0c1033;
+    background-color: transparent;
+  }
+  .btn-logout-position{
+      right: 20%;
+  }
+  .btn-products-position{
+      margin-right: 50px;
+  }
+  
+  /* Footer */
+  footer{
+    background: #0c1033;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 300px; 
+  }
+  .text-small {
+    font-size: 0.9rem;
+  }
+  a{
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  a:hover, a:focus {
+    text-decoration: none;
+  }
+  .imgLogoFooter {
+    width: 20%;
+    float: left;
+    border-radius: 8px;
+  }
+
+/* CSS Form Display */
+.card{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.card-header-main{
+    font-size: 24px; 
+    font-weight: 800;
+    background-color: white;
+    border: 4px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(to right, darkblue, darkorchid) border-box;
+    border-radius: 8px;
+    padding: 8 8;
+    margin: 16 16;
+    margin-bottom: 1%;
+}
+.btn-create{
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+  padding: 5 5;
+  border-radius: 5px;
+  background-color: #5643CC;
+}
+.btn-create:hover{
+  color: white;
+  background-color: darkorchid;
+}
+.frame-main{
+  border: 4px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, darkblue, darkorchid) border-box;
+  border-radius: 8px;
+  margin: 16 16;
+}
+.tr-main{
+  border: 2px slategrey;
+}
+  
+  /* Modal */
+.show-modal{
+        color: #fff;
+        background: linear-gradient(to right, #33a3ff, #0675cf, #49a6fd);
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: capitalize;
+        position: absolute; 
+        right: 18%;
+        border: none;
+        outline: none;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        display: block;
+        transition: all 0.3s ease 0s;
+}
+  .show-modal:hover,
+  .show-modal:focus{
+        color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        outline: none;
+  }
+  .modal-body .title{
+        color: #026fd4;
+        font-size: 33px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin: 0 0 10px;
+  }
+  .modal-dialog{
+        width: 1000px;
+        margin: 70px auto 0;
+  }
+  .modal-dialog{ transform: scale(0.5); }
+  .modal-dialog{ transform: scale(1); }
+  .modal-dialog .modal-content{
+        text-align: center;
+        border: none;
+  }
+  .modal-content .close{
+        color: #fff;
+        position: absolute;
+        left: auto;
+        right: 8px;
+        top: 8px;
+        z-index: 1;
+        transition: all 0.3s;
+  }
+  .modal-content .close:hover{
+        color: black;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  }
+  .close:focus{ outline: none; }
+  .modal-body{ padding: 60px 40px 40px !important; }
+  .modal-body .form-group{
+        text-align: left;
+        margin-bottom: 20px;
+        position: relative;
+  }
+  .modal-content .modal-body .btn{
+        color: #fff;
+        background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff);
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        line-height: 38px;
+        width: 100%;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 5px;
+        border: none;
+        display: inline-block;
+        transition: all 0.6s ease 0s;
+  }
+  .modal-content .modal-body .btn:hover{
+        color: #fff;
+        letter-spacing: 2px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  .modal-content .modal-body .btn:focus{ outline: none; }
+  @media only screen and (max-width: 480px){
+        .modal-dialog{ width: 95% !important; }
+        .modal-content .modal-body{
+            padding: 60px 20px 40px !important;
+        }
+  }
+  
+/* Banner */
+.bg-image {
+      background-image: url('https://bidpro.webdevia.com/wp-content/uploads/2021/07/slider-bg.jpg?id=10291');
+      background-size: cover;
+      height: 70%;
+      justify-content: center;
+      align-items: center;
+      background-repeat: no-repeat;
+      position: relative;
+}
+  .bg-image2 {
+      background-image: url('https://bidpro.webdevia.com/wp-content/uploads/2021/07/slider-bg.jpg?id=10291');
+      background-size: cover;
+      height: 10%;
+      justify-content: center;
+      align-items: center;
+      background-repeat: no-repeat;
+      position: relative;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+  }
+  .form-control{
+      width: 300px;
+  }
+  .form-input{
+      width: 320px;
+  }
+  .text-banner{
+      font-weight: 800;
+  }
+
+.card-table{
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+/* Form input products */
+.form-create-products{
+  width: 300px;
+}
+.control-label{
+  width: 300px;
+}
+
+/* Container FormEdit */
+.container-sm{
+  padding: 250 250;
+}
+.form-container{
+  padding: 20 20;
+}
+
+/* View Product */
+#bid-frm{
+  display: none
+}
+.img-product{
+  width: auto;
+  height: 220px;
+  border: 2px solid #4cd5ff;
+  padding: 10px;
+  box-shadow: 5px 10px #33a3ff;
+  /* border-radius: 5px; */
+}
+.text-countdown{
+  background: linear-gradient(to right, rgb(154, 52, 202), rgb(110, 27, 206), darkorchid);
+  color: white;
+  font-size: 18px;
+  border-radius: 25px;
+  padding: 8 8;
+  width: 40%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Button Edit */
+.container-sm .btn1{
+  color: #fff;
+  background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 38px;
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  transition: all 0.6s ease 0s;
+}
+.container-sm .btn1:hover{
+  color: #fff;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.container-sm .btn1:focus{ outline: none; }
+.container-sm .btn2{
+  color: #fff;
+  background: linear-gradient(to right, #ff3333, #cf0606, #ff4c4c);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 38px;
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  transition: all 0.6s ease 0s;
+}
+.container-sm .btn2:hover{
+  color: #fff;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.container-sm .btn2:focus{ outline: none; }
+
+.img-formEdit{
+  margin-left: 170px;
+}
+
+/* Button */
+.btn-edit{
+  color: #fff;
+  background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 7 ;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  transition: all 0.6s ease 0s;
+}
+.btn-edit:hover{
+  color: #fff;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.btn-edit:focus{ outline: none; }
+.btn-cancel{
+  color: #fff;
+  background: linear-gradient(to right, #e64949, #cf0606, #ff4c4c);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 7 7;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  transition: all 0.6s ease 0s;
+}
+.btn-cancel:hover{
+  color: #fff;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.btn-cancel:focus{ outline: none; }
+.btn-code{
+  color: #fff;
+  background: linear-gradient(to right, #e6c949, #cfcc06, #ffc64c);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 7 7;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  transition: all 0.6s ease 0s;
+}
+.btn-code:hover{
+  color: #fff;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.btn-code:focus{ outline: none; }
+
+/* Sidebar */
+.container-create{
+  background-color: #0c1033;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.container-create-text{
+  font-size: 18px;
+  background-color: #ffffffc4;
+  color: #343a40;
+  width: 109%;
+}
+.container-create-text a:hover{
+  color: white !important;
+  background-color:#0675cf;
+}
+.list-group-item a:active{
+  color: white !important;
+  background-color: #343a40;
+}
+
+.btn-view{
+  color: #fff;
+  background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 38px;
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  transition: all 0.6s ease 0s;
+}
+.btn-view:hover{
+  color: navy;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn-warning{
+  font-weight: 800;
+}
+
+/* Bidding Stage */
+.bidding-stage{
+  background-color:wheat;
+  padding: 5 5;
+  border-radius: 12px;
+}
+.bidding-stage-win{
+  background-color: springgreen;
+  padding: 5 5;
+  border-radius: 12px;
+}
+.bidding-stage-loose{
+  background-color: tomato;
+  padding: 5 5;
+  border-radius: 12px;
+}
+.bidding-stage-waiting{
+  background-color:#4cd5ff;
+  padding: 5 5;
+  border-radius: 12px;
+}
+.bidding-stage-pending{
+  background-color: coral;
+  padding: 5 5;
+  border-radius: 12px;
+}
+
+/* Pending */
+.container-pending{
+  width: 50%;
+}
+.img-pending{
+  border-style: solid;
+}
