@@ -38,7 +38,7 @@ $query_run = mysqli_query($objConnect, $query);
                             WELCOME - <?php echo $_SESSION['member_username']; ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><button type="submit" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-account">ACCOUNT</a></li>
+                            <li><button type="submit" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-edit-users">ACCOUNT</a></li>
                             <li><a class="dropdown-item" href="../Assets/Logout.php">LOGOUT</a></li>
                         </ul>
                     </li>
@@ -165,7 +165,7 @@ $query_run = mysqli_query($objConnect, $query);
         </div>
 
         <!-- Modal EditAccount -->
-        <div class="modal fade" id="edit-account" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-edit-users" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-content clearfix modal-body">
@@ -173,7 +173,7 @@ $query_run = mysqli_query($objConnect, $query);
                         <div>
                             <h3 class="title">EDIT ACCOUNT</h3>
                         </div>
-                        <form name="formLogin"  method="post" action="../Member/EditAccount.php">
+                        <form name="formLogin"  method="post" action="UsersEdit.php">
                             <input type="hidden" name="member_id" id="member_id" class="form-control form-input" value="<?=$objResult['member_id'];?>">
                             <input type="hidden" name="member_type" id="member_type" class="form-control form-input" value="<?=$objResult['member_type'];?>">
                             <div class="form-group">
@@ -199,6 +199,10 @@ $query_run = mysqli_query($objConnect, $query);
                             <div class="form-group">
                                 <a>Password</a>
                                 <input type="text" name="member_password" id="member_password" class="form-control form-input" value="<?=$objResult['member_password'];?>">
+                            </div>
+                            <div class="form-group">
+                                <a>Type</a>
+                                <input type="text" name="member_type" id="member_type" class="form-control form-input" value="<?=$objResult['member_type'];?>">
                             </div>
                             <hr>
                             <div>

@@ -68,7 +68,7 @@ $objResult = mysqli_fetch_array($objQuery);
         <script type="text/javascript">
             var nav = document.querySelector('nav');
             window.addEventListener('scroll', function () {
-                if (window.pageYOffset > 100) {
+                if (window.pageYOffset > 50) {
                 nav.classList.add('scrolled', 'shadow');
                 } else {
                 nav.classList.remove('scrolled', 'shadow');

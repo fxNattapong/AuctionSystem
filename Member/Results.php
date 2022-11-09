@@ -73,7 +73,7 @@ include('../Assets/Session.php');
         </script>
 
         <!-- Sidebar -->
-        <div class="container-fluid h-75">
+        <div class="container-fluid h-100">
             <div class="row h-100">
                 <!-- Sidebar -->
                 <div class="col-1 list-group list-group-flush container-create">
@@ -127,15 +127,16 @@ include('../Assets/Session.php');
                                                 $books = mysqli_query($objConnect, "SELECT b.*, m.member_fullname AS member_fullname, p.product_name, p.product_end_bid FROM bids b
                                                                                     INNER JOIN members m ON m.member_id = b.bid_user_id 
                                                                                     INNER JOIN products p ON p.product_id = b.bid_product_id
-                                                                                    WHERE p.product_created_by = $session_username ORDER BY b.bid_amount DESC");
+                                                                                    WHERE p.product_created_by = $session_username ORDER BY b.bid_amount ASC");
                                                 // echo "number of rows: " . $books->num_rows;
-                                                $i = $books->num_rows;
+                                                // $i = $books->num_rows;
+                                                $i = 1;
                                                 while($row = $books->fetch_assoc()):
                                                     $get = mysqli_query($objConnect, "SELECT * FROM bids WHERE bid_product_id = {$row['bid_product_id']} ORDER BY bid_amount DESC LIMIT 1 ");
                                                     $uid = $get->num_rows > 0 ? $get->fetch_array()['bid_user_id'] : 0 ;
                                                 ?>
                                                 <tr>
-                                                    <td class="text-center"><?php echo $i-- ?></td>
+                                                    <td class="text-center"><?php echo $i++ ?></td>
                                                     <td class="">
                                                         <p> <?php echo ucwords($row['product_name']) ?></p>
                                                     </td>
@@ -146,6 +147,10 @@ include('../Assets/Session.php');
                                                         <p> <?php echo number_format($row['bid_amount'],2) ?></p>
                                                     </td>
                                                     <td class="text-center">
+                                                        <?php
+                                                        $bids = $objConnect->query("SELECT bid_status, MAX(bid_amount) AS max FROM bids WHERE bid_product_id = '$row[bid_product_id]'");
+                                                        $bid_data = mysqli_fetch_array($bids, MYSQLI_BOTH);
+                                                        ?>
                                                         <?php if($row['bid_status'] == 1): ?>
                                                             <?php if(strtotime(date('Y-m-d H:i')) < strtotime($row['product_end_bid'])): ?>
                                                                 <b><span class="text-dark bidding-stage">Bidding Stage</span><b>
@@ -156,14 +161,16 @@ include('../Assets/Session.php');
                                                                     <span class="text-dark bidding-stage-loose">Loose in Bidding</span>
                                                                 <?php endif; ?>
                                                             <?php endif; ?>
-                                                        <?php elseif($row['bid_status'] == 2): ?>
+                                                            <?php elseif($row['bid_status'] == 2 && $row['bid_amount'] == $bid_data['max']): ?>
                                                                 <?php if($uid == $row['bid_user_id']): ?>
                                                                     <b><span class="text-dark bidding-stage-win">Wins in Bidding</span></b>
                                                                 <?php else: ?>
                                                                     <b><span class="text-dark bidding-stage-loose">Loose in Bidding</span></b>
                                                                 <?php endif; ?>
-                                                        <?php else: ?>
+                                                        <?php elseif($row['bid_status'] == 3): ?>
                                                             <b><span class="text-dark bidding-stage-loose">Canceled</span></b>
+                                                        <?php else: ?>
+                                                            <b><span class="text-dark bidding-stage-loose">Loose in Bidding</span></b>
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>
@@ -192,52 +199,5 @@ include('../Assets/Session.php');
                 max-height: :150px;
             }
         </style>
-        
-        <!-- FOOTER -->
-        <footer class="w-100 py-4 flex-shrink-0">
-            <div class="container py-3">
-                <div class="row gy-4 gx-5 row justify-content-md-center">
-                    <div class="col-lg-2 col-md-6">
-                        <h5 class="text-white mb-3">Quick links</h5>
-                        <ul class="list-unstyled text-muted">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Shope</a></li>
-                            <li><a href="#">Vendor</a></li>
-                            <li><a href="#">Payment</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6">
-                        <h5 class="text-white mb-3">Quick links</h5>
-                        <ul class="list-unstyled text-muted">
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">Contract us</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">FAQ</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6">
-                        <h5 class="text-white mb-3">Quick links</h5>
-                        <ul class="list-unstyled text-muted">
-                            <li><a href="#">Cart</a></li>
-                            <li><a href="#">Shop Listing</a></li>
-                            <li><a href="#">List View</a></li>
-                            <li><a href="#">Single Post</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-3">Subscribe</h5>
-                        <p class="small text-muted">Get digital marketing updates in your mailbox.</p>
-                        <form action="#">
-                            <div class="input-group mb-3">
-                                <input class="form-control" type="text" placeholder="Enter email address">
-                                <button type="submit" class="btn btn-primary">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <hr class="bg-white border-2 border-top border-white">
-                <center><p class="small text-muted mb-0">&copy; Copyrights. All rights reserved.</p></center>
-            </div>
-        </footer>
     </body>
 </html>

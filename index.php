@@ -70,11 +70,11 @@ include('Assets/db_connect.php');
                         <form name="formLogin"  method="post" action="Member/MembersLogin.php">
                             <div class="form-group">
                                 <a>Your username</a>
-                                <input type="text" name="member_username" id="member_username" class="form-control form-input" placeholder="">
+                                <input type="text" name="member_username" id="member_username" class="form-control form-input" placeholder="" required>
                             </div>
                             <div class="form-group">
                                 <a>Your password</a>
-                                <input type="password" name="member_password" id="member_password" class="form-control form-input" placeholder="">
+                                <input type="password" name="member_password" id="member_password" class="form-control form-input" placeholder="" required>
                             </div>
                             <hr>
                             <div>
@@ -104,27 +104,27 @@ include('Assets/db_connect.php');
                     <form name="formRegister"  method="post" action="Member/MembersRegister.php">
                         <div class="form-group">
                             <a>Fullname</a>
-                            <input type="text" name="member_fullname" id="member_fullname" class="form-control form-input" placeholder="">
+                            <input type="text" name="member_fullname" id="member_fullname" class="form-control form-input" placeholder="" required>
                         </div>
                         <div class="form-group">
                             <a>Contact</a>
-                            <input type="text" name="member_contact" id="member_contact" class="form-control form-input" placeholder="">
+                            <input type="text" name="member_contact" id="member_contact" class="form-control form-input" placeholder="" required>
                         </div>
                         <div class="form-group">
                             <a>Address</a>
-                            <input type="text" name="member_address" id="member_address" class="form-control form-input" placeholder="">
+                            <input type="text" name="member_address" id="member_address" class="form-control form-input" placeholder="" required>
                         </div>
                         <div class="form-group">
                             <a>Email</a>
-                            <input type="email" name="member_email" id="member_email" class="form-control form-input" placeholder="">
+                            <input type="email" name="member_email" id="member_email" class="form-control form-input" placeholder="" required>
                         </div>
                         <div class="form-group">
                             <a>Username</a>
-                            <input type="text" name="member_username" id="member_username" class="form-control form-input" placeholder="">
+                            <input type="text" name="member_username" id="member_username" class="form-control form-input" placeholder="" required>
                         </div>
                         <div class="form-group">
                             <a>Password</a>
-                            <input type="password" name="member_password" id="member_password" class="form-control form-input" placeholder="">
+                            <input type="password" name="member_password" id="member_password" class="form-control form-input" placeholder="" required>
                         </div>
                         <hr>
                         <div>

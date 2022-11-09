@@ -121,14 +121,14 @@ $query_run = mysqli_query($objConnect, $query);
                                     $member_id = mysqli_query($objConnect, "SELECT member_id FROM members WHERE member_username = $session_username");
                                     $member_id_data = mysqli_fetch_array($member_id, MYSQLI_BOTH);
 
-                                    $books = mysqli_query($objConnect, "SELECT * FROM products WHERE product_buyer_id = '$member_id_data[member_id]'");
+                                    $books = mysqli_query($objConnect, "SELECT * FROM products WHERE product_buyer_id = '$member_id_data[member_id]' ORDER BY product_id ASC");
                                     // echo "number of rows: " . $books->num_rows;
-                                    $i = $books->num_rows;
+                                    $i = 1;
                                     while($row = $books->fetch_assoc()):
                                         ?>
                                         <?php if(strtotime(date('Y-m-d H:i')) > strtotime($row['product_end_bid'])): ?>
                                             <tr class="td-main">
-                                                <td class="text-center"><?php echo $i-- ?></td>
+                                                <td class="text-center"><?php echo $i++ ?></td>
                                                 <td class="">
                                                     <p> <?php echo ucwords($row['product_name']) ?></p>
                                                 </td>
@@ -158,15 +158,21 @@ $query_run = mysqli_query($objConnect, $query);
                                                         <b><span class="text-dark bidding-stage-win">Cancelled</span></b>
                                                     <?php endif; ?>
                                                 </td>
-                                                <?php if($payments_data['payment_img'] == '0'): ?>
+                                                <?php if($payments_data['payment_status'] == '1' && $payments_data['payment_img'] == '0'): ?>
                                                     <td class="text-right">
                                                         <center><a class="btn btn-payment modal-payments-users" type="button" 
                                                                     data-id="<?=$bids_data['bid_id'];?>" data-amount="<?=$bids_data['bid_amount'];?>">PAYMENT</a></center>
                                                     </td>
-                                                <?php else: ?>
+                                                <?php elseif($payments_data['payment_status'] == '1' && $payments_data['payment_img'] != '0'): ?>
                                                     <td class="text-right">
                                                         <center><a class="btn btn-edit modal-payments-users-edit" type="button"
                                                                     data-bid="<?=$bids_data['bid_id'];?>" data-amt="<?=$bids_data['bid_amount'];?>">EDIT</a></center>
+                                                    </td>
+                                                <?php else: ?>
+                                                    <td class="text-right">
+                                                        <center><a class="btn btn-view-result modal-payments-view" type="button"
+                                                                    data-bid="<?=$bids_data['bid_id'];?>" data-amt2="<?=$bids_data['bid_amount'];?>" 
+                                                                    data-pcode="<?=$payments_data['payment_parcel_code'];?>">VIEW</a></center>
                                                     </td>
                                                 <?php endif; ?>
                                             </tr>
@@ -260,6 +266,48 @@ $query_run = mysqli_query($objConnect, $query);
             </div>
         </div>
 
+        <!-- Modal View Payment -->
+        <div class="modal fade" id="modal-payments-view" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-content clearfix modal-body">
+                        <?php 
+                        $sql = "SELECT * FROM payments ";
+                        $result = mysqli_query($objConnect ,$sql);
+                        $data = mysqli_fetch_array($result, MYSQLI_BOTH)
+                        ?>
+                        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div>
+                            <h3 class="title">VIEW CODE</h3>
+                        </div>
+                        <hr>
+                            <input type="hidden" name="payment_bid_id" id="payment_bid" class="form-control form-input" value="" readonly>
+                            <div class="form-group">
+                                <b><a>Amount</a><b>
+                                <input type="text" name="payment_amt2" id="payment_amt2" class="form-control form-input" value="" readonly>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-5">
+                                    <label class="control-label">Payment Image</label>
+                                </div>
+                                <center><div class="col-md-5 img-payments">
+                                    <img src="<?php echo $data['payment_img'] ?>" alt="" id="img_path-field">
+                                </div></center>
+                            </div>
+                            <div class="form-group">
+                                <b><a>Parcel Code</a><b>
+                                <input type="text" name="payment_parcel_code" id="payment_parcel_code" class="form-control form-input" value="" readonly>
+                            </div>
+                            <hr>
+                            <div>
+                                <button type="button" class="btn-cancel" data-bs-dismiss="modal">CLOSE</button>
+                                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
         <script>
@@ -282,6 +330,12 @@ $query_run = mysqli_query($objConnect, $query);
                     $('#payment_bid').val($(this).data('bid'));
                     $('#payment_amt').val($(this).data('amt'));
                     $('#modal-payments-users-edit').modal('show');
+                });
+                $('.modal-payments-view').on('click', function () {
+                    $('#payment_bid').val($(this).data('bid'));
+                    $('#payment_amt2').val($(this).data('amt2'));
+                    $('#payment_parcel_code').val($(this).data('pcode'));
+                    $('#modal-payments-view').modal('show');
                 });
             });
         </script>

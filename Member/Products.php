@@ -177,7 +177,7 @@ $query_run = mysqli_query($objConnect, $query);
                                                     $session_username = "'".$_SESSION['member_username']."'";
                                                     $products = mysqli_query($objConnect, "SELECT * FROM products
                                                                                             WHERE product_created_by = $session_username 
-                                                                                            ORDER BY product_id asc ");
+                                                                                            ORDER BY product_id ASC ");
                                                     while($row = $products->fetch_assoc()):
                                                         $get = mysqli_query($objConnect, "SELECT * FROM bids where bid_product_id = {$row['product_id']} order by bid_amount desc limit 1");
                                                         $bid = $get->num_rows > 0 ? $get->fetch_array()['bid_amount'] : 0 ;
@@ -256,13 +256,21 @@ $query_run = mysqli_query($objConnect, $query);
                                                             $buyer_data = mysqli_fetch_array($buyer_id, MYSQLI_BOTH);
                                                             if($buyer_data != 0):
                                                             ?>
-                                                            <div style="margin-top: 20%;">
-                                                                <form method="post" action="PaymentsPending.php">
-                                                                    <input type="hidden" name="bid_id" id="bid_id" value="<?=$bids_data['bid_id'];?>">
-                                                                    <input type="hidden" name="bid_amount" id="bid_amount" value="<?=$bids_data['bid_amount'];?>">
-                                                                    <center><button type="submit" class="btn btn-code">Code</button></center>
-                                                                </form>
-                                                            </div>
+                                                                <?php if($payments_data['payment_parcel_code'] == ''): ?>
+                                                                <div style="margin-top: 20%;">
+                                                                    <form method="post" action="PaymentsPending.php">
+                                                                        <input type="hidden" name="bid_id" id="bid_id" value="<?=$bids_data['bid_id'];?>">
+                                                                        <input type="hidden" name="bid_amount" id="bid_amount" value="<?=$bids_data['bid_amount'];?>">
+                                                                        <center><button type="submit" class="btn btn-code">Code</button></center>
+                                                                    </form>
+                                                                </div>
+                                                                <?php else: ?>
+                                                                    <div>
+                                                                    <center><a class="btn btn-view-result modal-payments-view" type="button"
+                                                                            data-bid="<?=$bids_data['bid_id'];?>" data-amt2="<?=$bids_data['bid_amount'];?>" 
+                                                                            data-pcode="<?=$payments_data['payment_parcel_code'];?>">VIEW</a></center>
+                                                                </div>
+                                                                <?php endif; ?>    
                                                             <?php else: ?>
                                                                 <?php 
                                                                 $buyer_id = mysqli_query($objConnect, "SELECT * FROM members WHERE member_id = {$row['product_buyer_id']} ");
@@ -323,6 +331,48 @@ $query_run = mysqli_query($objConnect, $query);
                                                         </div>
                                                     </div>
 
+                                                    <!-- Modal View Payment -->
+                                                    <div class="modal fade" id="modal-payments-view" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-content clearfix modal-body">
+                                                                    <?php 
+                                                                    $sql = "SELECT * FROM payments ";
+                                                                    $result = mysqli_query($objConnect ,$sql);
+                                                                    $data = mysqli_fetch_array($result, MYSQLI_BOTH)
+                                                                    ?>
+                                                                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    <div>
+                                                                        <h3 class="title">VIEW CODE</h3>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <input type="hidden" name="payment_bid_id" id="payment_bid" class="form-control form-input" value="" readonly>
+                                                                    <div class="form-group" style="margin-left: 12%;">
+                                                                        <a><b>Amount<b></a>
+                                                                        <input type="text" name="payment_amt2" id="payment_amt2" class="form-control form-input" value="" readonly>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 12%;">
+                                                                        <div class="col-md-5">
+                                                                            <label class="control-label">Payment Image</label>
+                                                                        </div>
+                                                                        <center><div class="col-md-5 img-payments">
+                                                                            <img src="<?php echo $data['payment_img'] ?>" alt="" id="img_path-field">
+                                                                        </div></center>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 12%;">
+                                                                        <a><b>Parcel Code<b></a>
+                                                                        <input type="text" name="payment_parcel_code" id="payment_parcel_code" class="form-control form-input" value="" readonly>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div>
+                                                                        <button type="button" class="btn-cancel-view" data-bs-dismiss="modal">CLOSE</button>
+                                                                        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <?php endwhile; ?>
                                                 </tbody>
                                                 <?php
@@ -338,7 +388,7 @@ $query_run = mysqli_query($objConnect, $query);
                             <!-- Table Panel -->
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <!-- Modal Create -->
                 <div class="modal fade" id="productsCreate" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -434,6 +484,12 @@ $query_run = mysqli_query($objConnect, $query);
                     var payment_amount = $(this).data('amount');
                     $(".modal-body #payment_amount").val( payment_amount );
                     $('#modal-payments-seller').modal('show');
+                });
+                $('.modal-payments-view').on('click', function () {
+                    $('#payment_bid').val($(this).data('bid'));
+                    $('#payment_amt2').val($(this).data('amt2'));
+                    $('#payment_parcel_code').val($(this).data('pcode'));
+                    $('#modal-payments-view').modal('show');
                 });
             });
         </script>

@@ -52,7 +52,7 @@ $objResult = mysqli_fetch_array($objQuery);
                 <!-- Sidebar -->
                 <div class="col-1 list-group list-group-flush container-create">
                     <div class="container-create-text">
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <a href="Home.php" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>HOME</span>
                     </a>
                     <a href="Users.php" class="list-group-item list-group-item-action py-2 ripple ">

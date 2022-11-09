@@ -122,15 +122,15 @@ $query_run = mysqli_query($objConnect, $query);
                                     $books = mysqli_query($objConnect, "SELECT b.*, m.member_fullname AS member_fullname, p.product_name, p.product_end_bid FROM bids b
                                                                         INNER JOIN members m ON m.member_id = b.bid_user_id 
                                                                         INNER JOIN products p ON p.product_id = b.bid_product_id
-                                                                        WHERE b.bid_user_id = $member_id_data[member_id] ORDER BY b.bid_amount DESC");
+                                                                        WHERE b.bid_user_id = $member_id_data[member_id] ORDER BY p.product_id ASC");
                                     // echo "number of rows: " . $books->num_rows;
-                                    $i = $books->num_rows;
+                                    $i = 1;
                                     while($row = $books->fetch_assoc()):
                                         $get = mysqli_query($objConnect, "SELECT * FROM bids WHERE bid_product_id = {$row['bid_product_id']} ORDER BY bid_amount DESC LIMIT 1 ");
                                         $uid = $get->num_rows > 0 ? $get->fetch_array()['bid_user_id'] : 0 ;
                                     ?>
                                     <tr>
-                                        <td class="text-center"><?php echo $i-- ?></td>
+                                        <td class="text-center"><?php echo $i++ ?></td>
                                         <td class="">
                                             <p><?php echo ucwords($row['product_name']) ?></p>
                                         </td>
